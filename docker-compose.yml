@@ -1,0 +1,13 @@
+services:
+  # The name of our service
+  app:
+    # Build the image from the current directory (where Dockerfile is)
+    build: .
+    # Map the container's port 3000 to the host's port 3000
+    ports:
+      - "3000:3000"
+    # Restart the container if it crashes or the computer restarts
+    restart: always
+    # Environment variables
+    environment:
+      - NODE_ENV=production
