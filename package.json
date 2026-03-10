@@ -2,9 +2,9 @@
   "name": "group20",
   "version": "1.0.0",
   "description": "A simple node.js project for group 20 SER. View readme for more.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "echo \"no test specified\" && exit 1"
   },
   "keywords": [],
