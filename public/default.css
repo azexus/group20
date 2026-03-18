@@ -90,12 +90,13 @@ BUTTON
     font-size: 15px;
 }
 
-#seven, #four, #one, #zero { left: 0px; }
+
+ #seven, #four, #one, #zero { left: 0px; }
 #sign, #eight, #five, #two, #decimal { left: 65px; }
 #clear, #nine, #six, #three, #equal { left: 130px; }
 #clearEntry, #divide, #multiply, #subtract, #add { left: 195px; }
 
-#sign, #clear, #clearEntry { top: 202px; }
+ #mod ,#sign, #clear, #clearEntry { top: 202px; }
 #seven, #eight, #nine, #divide { top: 255px; }
 #four, #five, #six, #multiply { top: 308px; }
 #one, #two, #three, #subtract { top: 361px; }

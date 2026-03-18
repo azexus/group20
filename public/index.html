@@ -100,6 +100,9 @@
           case '/':
             uri += "?operation=divide";
             break;
+          case '%':
+            uri += "?operation=modulo";
+            break;
           default:
             setError();
             return;
@@ -216,6 +219,8 @@
           decimalPressed();
         } else if (event.key.match(/^[-*+/]$/)) {
           operationPressed(event.key);
+        } else if (event.key == '%') {
+          operationPressed('%');
         } else if (event.key == '=') {
           equalPressed();
         }
@@ -235,6 +240,7 @@
         <div>
           <button id="clear" onClick="clearPressed()">C</button>
           <button id="clearEntry" onClick="clearEntryPressed()">CE</button>
+          <button id="mod" onClick="operationPressed('%')">%</button>
         </div>
 
         <div>
@@ -260,6 +266,7 @@
           <button id="decimal" onClick="decimalPressed()">.</button>
           <button id="equal" onClick="equalPressed()">=</button>
           <button id="add" onClick="operationPressed('+')">+</button>
+          
         </div>
       </div>
     </div>
