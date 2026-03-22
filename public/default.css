@@ -15,7 +15,6 @@ BODY {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
-/* ── Page wrapper ── */
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -23,7 +22,6 @@ BODY {
   padding: 2rem 1rem;
 }
 
-/* ── Header ── */
 .calc-header {
   display: flex;
   align-items: center;
@@ -50,7 +48,6 @@ BODY {
   margin-left: 4px;
 }
 
-/* ── Calculator shell ── */
 .calculator {
   background: #161b22;
   border: 1px solid #30363d;
@@ -62,7 +59,6 @@ BODY {
     0 24px 64px rgba(0, 0, 0, 0.6);
 }
 
-/* ── Display ── */
 .display-section {
   padding: 20px 20px 14px;
   background: #0d1117;
@@ -118,7 +114,6 @@ BODY {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* Override any inherited position styles */
   position: static;
   background: transparent;
   border: none;
@@ -141,7 +136,6 @@ BODY {
 
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ── Loading indicator ── */
 #loading {
   display: flex;
   gap: 5px;
@@ -161,17 +155,14 @@ BODY {
 
 @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 
-/* ── Keypad ── */
 .keypad {
   padding: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  /* Reset any inherited absolute positioning */
   position: static;
 }
 
-/* ── Buttons — reset all inherited styles first ── */
 BUTTON, .btn {
   border: none;
   border-radius: 10px;
@@ -186,7 +177,6 @@ BUTTON, .btn {
   align-items: center;
   justify-content: center;
   user-select: none;
-  /* Reset absolute positioning from old CSS */
   position: static;
   left: auto;
   top: auto;
@@ -245,7 +235,6 @@ BUTTON:disabled {
   transform: none;
 }
 
-/* ── Footer ── */
 .calc-footer {
   margin-top: 1rem;
   text-align: center;
@@ -260,7 +249,6 @@ BUTTON:disabled {
 
 .green { color: #68d391; }
 
-/* ── Responsive scaling (preserved from original) ── */
 @media screen and (min-device-width: 500px) and (min-device-height: 1024px) {
   .page-wrapper { transform: scale(1.75); transform-origin: 50% 0; }
 }
