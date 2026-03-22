@@ -72,6 +72,7 @@
           case '-': uri += "?operation=subtract"; break;
           case '*': uri += "?operation=multiply"; break;
           case '/': uri += "?operation=divide";   break;
+          case '^': uri += "?operation=pow";      break;
           default: setError(); return;
         }
         uri += "&operand1=" + encodeURIComponent(op1);
@@ -209,7 +210,7 @@
           <button class="btn btn-num" id="three"    onclick="numberPressed(3)">3</button>
           <button class="btn btn-op"  id="add"      onclick="operationPressed('+')">+</button>
 
-          <button class="btn btn-op" onclick="setOperation('pow')">^</button>
+          <button class="btn btn-op" id="power" onclick="operationPressed('^')">^</button>
           <button class="btn btn-num" id="zero"     onclick="numberPressed(0)">0</button>
           <button class="btn btn-num" id="decimal"  onclick="decimalPressed()">.</button>
           <button class="btn btn-equals btn-span2"  id="equal" onclick="equalPressed()">=</button>
