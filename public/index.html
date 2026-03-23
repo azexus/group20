@@ -67,6 +67,26 @@
 
       function calculate(op1, op2, op) {
         var uri = location.origin + "/arithmetic";
+
+        switch(operation) {
+          case '+':
+            uri += "?operation=add";
+            break;
+          case '-':
+            uri += "?operation=subtract";
+            break;
+          case '*':
+            uri += "?operation=multiply";
+            break;
+          case '/':
+            uri += "?operation=divide";
+            break;
+          case '%':
+            uri += "?operation=modulo";
+            break;
+          default:
+            setError();
+            return;
         switch(op) {
           case '+': uri += "?operation=add";      break;
           case '-': uri += "?operation=subtract"; break;
@@ -146,6 +166,17 @@
       }
 
       document.addEventListener('keypress', (event) => {
+        if (event.key.match(/^\d+$/)) {
+          numberPressed(event.key);
+        } else if (event.key == '.') {
+          decimalPressed();
+        } else if (event.key.match(/^[-*+/]$/)) {
+          operationPressed(event.key);
+        } else if (event.key == '%') {
+          operationPressed('%');
+        } else if (event.key == '=') {
+          equalPressed();
+        }
         if (event.key.match(/^\d+$/))       numberPressed(event.key);
         else if (event.key == '.')          decimalPressed();
         else if (event.key.match(/^[-*+/]$/)) operationPressed(event.key);
@@ -185,6 +216,37 @@ function convertPressed() {
 
     <div class="page-wrapper">
 
+      <div id="buttons">
+        <div>
+          <button id="clear" onClick="clearPressed()">C</button>
+          <button id="clearEntry" onClick="clearEntryPressed()">CE</button>
+          <button id="mod" onClick="operationPressed('%')">%</button>
+        </div>
+
+        <div>
+          <button id="seven" onClick="numberPressed(7)">7</button>
+          <button id="eight" onClick="numberPressed(8)">8</button>
+          <button id="nine" onClick="numberPressed(9)">9</button>
+          <button id="divide" onClick="operationPressed('/')">&#247;</button>
+        </div>
+        <div>
+          <button id="four" onClick="numberPressed(4)">4</button>
+          <button id="five" onClick="numberPressed(5)">5</button>
+          <button id="six" onClick="numberPressed(6)">6</button>
+          <button id="multiply" onClick="operationPressed('*')">&#215;</button>
+        </div>
+        <div>
+          <button id="one" onClick="numberPressed(1)">1</button>
+          <button id="two" onClick="numberPressed(2)">2</button>
+          <button id="three" onClick="numberPressed(3)">3</button>
+          <button id="subtract" onClick="operationPressed('-')">-</button>
+        </div>
+        <div>
+          <button id="zero" onClick="numberPressed(0)">0</button>
+          <button id="decimal" onClick="decimalPressed()">.</button>
+          <button id="equal" onClick="equalPressed()">=</button>
+          <button id="add" onClick="operationPressed('+')">+</button>
+          
       <div class="calc-header">
         <svg class="node-logo" viewBox="0 0 256 292" xmlns="http://www.w3.org/2000/svg">
           <path d="M128 0 L256 73v146l-128 73L0 219V73z" fill="rgba(46,160,67,0.15)"/>
