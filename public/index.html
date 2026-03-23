@@ -157,6 +157,28 @@
         else if (event.key == 'Backspace') clearEntryPressed();
         else if (event.key == 'Escape')    clearPressed();
       });
+function convertPressed() {
+    var amount = getValue();
+    if (amount === 0 || amount === "") return;
+
+    var uri = window.location.origin + "/convert?amount=" + encodeURIComponent(amount);
+
+    setLoading(true);
+
+    fetch(uri)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            setLoading(false);
+            setValue(parseFloat(data.result));
+            var histEl = document.getElementById('display-history');
+            if (histEl) histEl.textContent = amount + " ZMW = " + data.result + " USD";
+        })
+        .catch(function(err) {
+            setLoading(false);
+            console.error("Conversion failed:", err);
+            setError();
+        });
+}
     </script>
   </head>
   <body onLoad="setValue(0)">
@@ -210,11 +232,13 @@
           <button class="btn btn-num" id="three"    onclick="numberPressed(3)">3</button>
           <button class="btn btn-op"  id="add"      onclick="operationPressed('+')">+</button>
 
-          <button class="btn btn-op" id="power" onclick="operationPressed('^')">^</button>
+         <button class="btn btn-op" id="power" onclick="operationPressed('^')">^</button>
           <button class="btn btn-num" id="zero"     onclick="numberPressed(0)">0</button>
           <button class="btn btn-num" id="decimal"  onclick="decimalPressed()">.</button>
+          
+          <button class="btn btn-op" id="convert" onclick="convertPressed()">$</button>
+
           <button class="btn btn-equals btn-span2"  id="equal" onclick="equalPressed()">=</button>
-        </div>
       </div>
 
       <div class="calc-footer">
