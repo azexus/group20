@@ -68,30 +68,12 @@
       function calculate(op1, op2, op) {
         var uri = location.origin + "/arithmetic";
 
-        switch(operation) {
-          case '+':
-            uri += "?operation=add";
-            break;
-          case '-':
-            uri += "?operation=subtract";
-            break;
-          case '*':
-            uri += "?operation=multiply";
-            break;
-          case '/':
-            uri += "?operation=divide";
-            break;
-          case '%':
-            uri += "?operation=modulo";
-            break;
-          default:
-            setError();
-            return;
         switch(op) {
           case '+': uri += "?operation=add";      break;
           case '-': uri += "?operation=subtract"; break;
           case '*': uri += "?operation=multiply"; break;
           case '/': uri += "?operation=divide";   break;
+          case '%': uri += "?operation=modulo";   break;
           case '^': uri += "?operation=pow";      break;
           default: setError(); return;
         }
@@ -165,88 +147,48 @@
         calculate(operand1, operand2, operation);
       }
 
-      document.addEventListener('keypress', (event) => {
-        if (event.key.match(/^\d+$/)) {
-          numberPressed(event.key);
-        } else if (event.key == '.') {
-          decimalPressed();
-        } else if (event.key.match(/^[-*+/]$/)) {
-          operationPressed(event.key);
-        } else if (event.key == '%') {
-          operationPressed('%');
-        } else if (event.key == '=') {
-          equalPressed();
-        }
-        if (event.key.match(/^\d+$/))       numberPressed(event.key);
-        else if (event.key == '.')          decimalPressed();
-        else if (event.key.match(/^[-*+/]$/)) operationPressed(event.key);
-        else if (event.key == '=')          equalPressed();
-      });
+      function convertPressed() {
+        var amount = getValue();
+        if (amount === 0 || amount === "") return;
 
-      document.addEventListener('keydown', (event) => {
-        if (event.key == 'Enter')          equalPressed();
-        else if (event.key == 'Backspace') clearEntryPressed();
-        else if (event.key == 'Escape')    clearPressed();
-      });
-function convertPressed() {
-    var amount = getValue();
-    if (amount === 0 || amount === "") return;
+        var uri = window.location.origin + "/convert?amount=" + encodeURIComponent(amount);
 
-    var uri = window.location.origin + "/convert?amount=" + encodeURIComponent(amount);
+        setLoading(true);
 
-    setLoading(true);
-
-    fetch(uri)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
+        fetch(uri)
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
             setLoading(false);
             setValue(parseFloat(data.result));
             var histEl = document.getElementById('display-history');
             if (histEl) histEl.textContent = amount + " ZMW = " + data.result + " USD";
-        })
-        .catch(function(err) {
+          })
+          .catch(function(err) {
             setLoading(false);
             console.error("Conversion failed:", err);
             setError();
-        });
-}
+          });
+      }
+
+      document.addEventListener('keypress', function(event) {
+        if (event.key.match(/^\d+$/))       numberPressed(event.key);
+        else if (event.key == '.')          decimalPressed();
+        else if (event.key.match(/^[-*+/]$/)) operationPressed(event.key);
+        else if (event.key == '%')          operationPressed('%');
+        else if (event.key == '=')          equalPressed();
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key == 'Enter')          equalPressed();
+        else if (event.key == 'Backspace') clearEntryPressed();
+        else if (event.key == 'Escape')    clearPressed();
+      });
     </script>
   </head>
   <body onLoad="setValue(0)">
 
     <div class="page-wrapper">
 
-      <div id="buttons">
-        <div>
-          <button id="clear" onClick="clearPressed()">C</button>
-          <button id="clearEntry" onClick="clearEntryPressed()">CE</button>
-          <button id="mod" onClick="operationPressed('%')">%</button>
-        </div>
-
-        <div>
-          <button id="seven" onClick="numberPressed(7)">7</button>
-          <button id="eight" onClick="numberPressed(8)">8</button>
-          <button id="nine" onClick="numberPressed(9)">9</button>
-          <button id="divide" onClick="operationPressed('/')">&#247;</button>
-        </div>
-        <div>
-          <button id="four" onClick="numberPressed(4)">4</button>
-          <button id="five" onClick="numberPressed(5)">5</button>
-          <button id="six" onClick="numberPressed(6)">6</button>
-          <button id="multiply" onClick="operationPressed('*')">&#215;</button>
-        </div>
-        <div>
-          <button id="one" onClick="numberPressed(1)">1</button>
-          <button id="two" onClick="numberPressed(2)">2</button>
-          <button id="three" onClick="numberPressed(3)">3</button>
-          <button id="subtract" onClick="operationPressed('-')">-</button>
-        </div>
-        <div>
-          <button id="zero" onClick="numberPressed(0)">0</button>
-          <button id="decimal" onClick="decimalPressed()">.</button>
-          <button id="equal" onClick="equalPressed()">=</button>
-          <button id="add" onClick="operationPressed('+')">+</button>
-          
       <div class="calc-header">
         <svg class="node-logo" viewBox="0 0 256 292" xmlns="http://www.w3.org/2000/svg">
           <path d="M128 0 L256 73v146l-128 73L0 219V73z" fill="rgba(46,160,67,0.15)"/>
@@ -294,13 +236,14 @@ function convertPressed() {
           <button class="btn btn-num" id="three"    onclick="numberPressed(3)">3</button>
           <button class="btn btn-op"  id="add"      onclick="operationPressed('+')">+</button>
 
-         <button class="btn btn-op" id="power" onclick="operationPressed('^')">^</button>
-          <button class="btn btn-num" id="zero"     onclick="numberPressed(0)">0</button>
-          <button class="btn btn-num" id="decimal"  onclick="decimalPressed()">.</button>
-          
-          <button class="btn btn-op" id="convert" onclick="convertPressed()">$</button>
+          <button class="btn btn-op"      id="mod"     onclick="operationPressed('%')">%</button>
+          <button class="btn btn-num"     id="zero"    onclick="numberPressed(0)">0</button>
+          <button class="btn btn-num"     id="decimal" onclick="decimalPressed()">.</button>
+          <button class="btn btn-op"      id="power"   onclick="operationPressed('^')">^</button>
 
-          <button class="btn btn-equals btn-span2"  id="equal" onclick="equalPressed()">=</button>
+          <button class="btn btn-convert" id="convert" onclick="convertPressed()">$ ZMW&#8594;USD</button>
+          <button class="btn btn-equals btn-span2" id="equal" onclick="equalPressed()">=</button>
+        </div>
       </div>
 
       <div class="calc-footer">

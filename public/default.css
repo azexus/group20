@@ -1,109 +1,3 @@
-BODY
-{
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: #1b4076;
-}
-
-@media screen and (min-device-width: 500px) and (min-device-height: 1024px)
-{
-    BODY
-    {
-        transform: scale(1.75);
-        transform-origin: 50% 0;
-        height: 50%;
-    }
-}
-
-@media screen and (min-device-width: 1024px) and (min-device-height: 1366px)
-{
-    BODY
-    {
-        transform: scale(2.0);
-        transform-origin: 50% 0;
-        height: 50%;
-    }
-}
-
-.container
-{
-    min-width: 250px;
-    min-height: 531px;
-    width: 250px;
-    padding: 25px;
-    margin: 0 auto;
-    position: relative;
-    background-image: url(background.png);
-    background-size: 300px 531px;
-    background-repeat: no-repeat;
-    background-position: center top;
-}
-
-#results
-{
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#buttons
-{
-    position: relative;
-}
-
-#result
-{
-    background-color: #9b9b9b;
-    width: 226px;
-    height: 63px;
-    margin: 0;
-    padding: 0 12px;
-    position: absolute;
-    border: 0;
-    left: 0;
-    top: 32px;
-    font-family: system-ui;
-    font-size: 25px;
-    text-align: right;
-}
-
-BUTTON
-{
-    background-color: #d5d5d5;
-    border: 0;
-    border-radius: 0;
-    width: 55px;
-    height: 42px;
-    position: absolute;
-
-    font-size: 22px;
-}
-
-#sign, #clear
-{
-    font-size: 17px;
-}
-#clearEntry
-{
-    font-size: 15px;
-}
-
-
- #seven, #four, #one, #zero { left: 0px; }
-#sign, #eight, #five, #two, #decimal { left: 65px; }
-#clear, #nine, #six, #three, #equal { left: 130px; }
-#clearEntry, #divide, #multiply, #subtract, #add { left: 195px; }
-
- #mod ,#sign, #clear, #clearEntry { top: 202px; }
-#seven, #eight, #nine, #divide { top: 255px; }
-#four, #five, #six, #multiply { top: 308px; }
-#one, #two, #three, #subtract { top: 361px; }
-#zero, #decimal, #equal, #add { top: 414px; }
-
-.resultchar
-{
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -330,6 +224,15 @@ BUTTON:active, .btn:active { transform: scale(0.93); }
   font-weight: 600;
 }
 .btn-clear:hover { background: #5a2020; }
+
+.btn-convert {
+  background: #1a2d3d;
+  color: #58a6ff;
+  border: 1px solid rgba(88, 166, 255, 0.15);
+  font-size: 14px;
+  font-weight: 600;
+}
+.btn-convert:hover { background: #1f3a52; }
 
 .btn-span2 {
   grid-column: span 2;
